@@ -39,14 +39,25 @@ export class News extends Component {
         }
     }
 
+    async componentDidMount(){
+        let url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=757569d7200842ae90140de2ef6671ac"
+        let data = await fetch(url);
+        let parsedData = await data.json;
+        
+    }
+
   render() {
     return (
       <div className='container my-3'>
         <h2>NewsBuddy - News Headlines for you</h2>
         <div className="row">
-            <div className="col-md-4">
-                <NewsItem title="title" description="myDescription" imageUrl="https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg"/>
-            </div>        
+        {this.state.articles.map((element)=>{
+            return <div className="col-md-4" key={element.url}>
+            <NewsItem title={element.title.slice(0, 45)} description={element.description.slice(0, 88)} imageUrl={element.urlToImage} newsUrl={element.url}/>
+        </div>        
+
+        })}
+            
         </div>
 
       </div>
