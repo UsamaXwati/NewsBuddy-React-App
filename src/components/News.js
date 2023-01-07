@@ -14,7 +14,7 @@ export class News extends Component {
     }
 
     async componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=757569d7200842ae90140de2ef6671ac&page=1&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=1&pageSize=${this.props.pageSize}`
         this.setState({loading:true})
         await fetch(url).then((res) => res.json())
             .then((json) => {
@@ -31,7 +31,7 @@ export class News extends Component {
 
     handlePrevClick = async () => {
         console.log("pre")
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
         this.setState({loading:true})
         await fetch(url).then((res) => res.json())
             .then((json) => {
@@ -47,7 +47,7 @@ export class News extends Component {
         console.log("next")
         if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / 15))) {       
 
-            let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
             this.setState({loading:true})
             await fetch(url).then((res) => res.json())
                 .then((json) => {
@@ -55,7 +55,7 @@ export class News extends Component {
                         page: this.state.page + 1,
                         articles: json.articles,
                         loading: false
-                    });
+                    }); 
                 })
         }
 
@@ -65,7 +65,7 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-3'>
-                <h1 className="text-center">
+                <h1 className="text-center" style={{margin: '40px 0px'}}>
                 NewsBuddy - News Headlines for you
                 </h1>
                 {this.state.loading && <Spinner/>}
