@@ -24,7 +24,7 @@ export class News extends Component {
         super(props);
         this.state = {
             articles: [],
-            loading: false,
+            loading: true,
             page: 1
         }
         document.title = `${this.capitalizeFirstLetter(this.props.category)} - NewsBuddy`;
@@ -62,8 +62,7 @@ export class News extends Component {
         // 20 more records in 1.5 secs
 
         this.setState({ page: this.state.page + 1 })
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page+1}&pageSize=${this.props.pageSize}`
-        this.setState({ loading: true })
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=${this.state.page+1}&pageSize=${this.props.pageSize}`        
         await fetch(url).then((res) => res.json())
             .then((json) => {
                 this.setState({
@@ -76,7 +75,7 @@ export class News extends Component {
     }
     render() {
         return (
-            <div className='container my-3'>
+            <>
                 <h1 className="text-center" style={{ margin: '40px 0px' }}>
                     NewsBuddy - Top {this.capitalizeFirstLetter(this.props.category)} Headlines
                 </h1>
@@ -101,7 +100,7 @@ export class News extends Component {
                     </div>
                 </InfiniteScroll>
 
-            </div>
+            </>
         )
     }
 }
