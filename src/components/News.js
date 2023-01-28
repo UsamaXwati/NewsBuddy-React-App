@@ -9,7 +9,6 @@ const News = (props) => {
     const [loading, setloading] = useState(true)
     const [page, setpage] = useState(1)
     const [totalResults, settotalResults] = useState(0)
-//    document.title = `${this.capitalizeFirstLetter(props.category)} - NewsBuddy`;
 
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -31,6 +30,7 @@ const News = (props) => {
     }
     
     useEffect(() => {
+
         updateNews()    
       
     }, [])
@@ -47,9 +47,9 @@ const News = (props) => {
     }
     const fetchMoreData = async () => {
         // a fake async api call like which sends
-        // 20 more records in 1.5 secs
-        setpage(page+1)
+        // 20 more records in 1.5 secs        
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=757569d7200842ae90140de2ef6671ac&page=${page+1}&pageSize=${props.pageSize}`        
+        setpage(page+1)
         await fetch(url).then((res) => res.json())
             .then((json) => {
                 setarticles(articles.concat(json.articles))
@@ -60,7 +60,7 @@ const News = (props) => {
     }
         return (
             <>
-                <h1 className="text-center" style={{ margin: '40px 0px' }}>
+                <h1 className="text-center" style={{ margin: '40px 0px', marginTop: '90px' }}>
                     NewsBuddy - Top {capitalizeFirstLetter(props.category)} Headlines
                 </h1>
                 {/* {this.state.loading && <Spinner/>} */}
